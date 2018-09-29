@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>甲醇重整燃料电池系统</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./img/favicon.ico" />
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/offcanvas.min.css">
+  <link rel="stylesheet" href="../css/default.css">
+  <style>
+    body {
+      font-size: 100%;
+    }
+    
+    .slogan {
+      height: auto;
+      line-height: 63px;
+    }
+
+    @media screen and (min-width:768px){
+      .container{
+        width:100%;
+      }
+      .page-header{
+        padding:0px;
+        overflow:hidden;
+        height:63px;
+      }
+
+      .page-header h2{
+        height: 63px;
+        line-height:63px;
+      }
+
+      .wrapper {
+        width:99%;
+        height: 100%;
+        margin:0 auto;
+      }
+
+      .logout {
+        height: 63px;
+        line-height: 63px;
+        margin-right: 10px;
+      }
+
+      .charts {
+        width: 420px;
+        height: 260px;
+        background-color: #eee;
+        margin: 5px;
+      }
+
+      .part1 {
+        height: 412px;
+        width: 100%;
+      }
+
+      .cell {
+        display: table-cell;
+        vertical-align: middle;
+      }
+
+      .div3 {
+        height: 260px;
+        width: 168px;
+      }
+    }
+    @media screen and (min-width: 375px) and (max-width: 768px){
+      .page-header{
+        padding:0px;
+        margin:0px;
+        overflow:hidden;
+        height:45px;
+      }
+
+      .nav-model{
+        display:none;
+      }
+
+      .div3{
+        display:none;
+      }
+
+      .charts{
+        width:320px;
+        background-color: #eee;
+        margin: 10px 14px;
+      }
+    }
+
+    @media screen and (max-width: 375px){
+      .nav-model{
+        display:none;
+      }
+      .div3{
+        display:none;
+      }
+    }
+
+    .page-header {
+      border: none;
+      margin: 0px;
+      padding: 0px;
+    }
+
+    h3{
+      padding:19px 0px;
+    }
+
+    .title {
+      margin: 10px;
+    }
+
+    .update-password{
+      padding:19px 0px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="overlay"></div>
+  <nav class="navbar navbar-inverse navbar-static-top">
+    <div class="">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed pull-left" data-toggle="offcanvas">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">甲醇重整燃料电池系统</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse sidebar-offcanvas">
+        <ul class="nav navbar-nav">
+          <li role="presentation" class="navli">
+            <a href="#">车辆列表</a>
+          </li>          
+          <li>
+            <a href="/updatePassword">修改密码</a>
+          </li>
+          <li role="presentation" class="navli">
+            <a id="logout" href="/logout">退出</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="col-lg-10 col-md-10 col-sm-10  col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+    <!-- End .title -->
+    <div class="content top text-center">
+      <table id="datatable_example" class="responsive table table-striped table-bordered text-center" style="width:100%;margin:10px;">
+        <thead>
+          <tr>
+            <th class="no_sort text-center">序号</th>
+            <th class="no_sort text-center">guid</th>
+            <th class="no_sort text-center">别名</th>
+            <th class="no_sort text-center">所属公司</th>
+            <th class="no_sort text-center">是否在线</th>
+            <th class="no_sort text-center">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var i=0; i<items.length; i++) { %>
+          <tr>
+            <td class="no_sort">
+              <%=i+1 %>
+            </td>
+            <td class="no_sort">
+              <%=items[i].guid %>
+            </td>
+            <td class="no_sort to_hide_phone">
+              <%=items[i].alias %>
+            </td>
+            <td class="no_sort to_hide_phone">
+              <%=items[i].name %>
+            </td>
+            <td class="no_sort">
+              <%if(items[i].online==1){%>在线
+              <%}else{%>离线
+              <%}%>
+            </td>
+            <td class="no_sort">
+              <% if(items[i].guid==3){%>
+              <a href="/devicesInfo3/<%=items[i].guid %>">查看</a>
+              <%}else{%>
+              <a href="/OneVehicleCellsInfo/<%=items[i].guid %>">查看</a>
+              <!-- /<%=items[i].guid %> -->
+              <%}%>
+            </td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <script src="../js/offcanvas.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>氢洁电源互联互通显示系统</title>
+    <link rel="shortcut icon" href="../img/favicon.ico"/>
+    <link rel="shortcut icon" href="../css/style.css"/>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <style>
+        body { padding-top:200px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="col-sm-6 col-sm-offset-3">
+            <h1><span class="fa fa-sign-in"></span>Login</h1>
+            <form class="form-horizontal" action="/login" method="post">
+                <legend>用户登入</legend>
+                <div class="form-group">
+                    <label for="username">用户名</label>
+                    <input class="form-control" id="username" type="text" name="username"/>
+                    <label for="reminder" style="color:red;"><% if(message=="用户不存在"){%> 用户不存在，请重新输入。<% } %></label>                    
+                </div>
+                <div class="form-group">
+                    <label for="password">口令</label>
+                    <input class="form-control" id="password" type="password" name="password"/>
+                    <label for="reminder" style="color:red;"><% if(message=="密码不正确"){%> 密码不正确，请重新输入。 <% } %></label>                    
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary btn-lg" value="登录"/>
+                </div>        
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../css/normalize.css">
+    <!-- 引入bootstrap样式 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        body{
+            background-color:#f0f2f5;
+        }
+        .wrapper {
+            height: 100px;
+        }
+
+        .slogan {
+            height: auto;
+            line-height: 63px;
+            font-size: 18px;
+        }
+
+        .height6 {
+            display: inline-block;
+            width:118px;
+            margin: 10px 20px;
+            height: 68px;
+            background-color: rgb(74, 219, 74);
+            box-shadow: 3px 3px 3px rgba(47, 241, 21, 0.596);
+        }
+        
+        .height10 {
+            display: inline-block;
+            width: 118px;
+            margin: 20px 20px;
+            height: 128px;
+            background-color: rgb(74, 173, 219);
+            box-shadow: 3px 3px 3px rgba(74, 173, 219);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+    <div class="wrapper">
+        <div class="header" style="margin-top:20px;">
+            <div class="col-md-3 col-sm-3 col-lg-3 slogan">
+                氢洁电源
+                <!-- <img src="../../img/logo_mini.png" alt="logo" /> -->
+            </div>
+            <div class="col-md-6 col-sm-6 text-center">
+                <h2>甲醇重整燃料电池控制系统</h2>
+            </div>
+            <div class="col-md-3 col-sm-3 text-right">
+                <div class="height1 padding1">
+                    欢迎你，
+                    <span id="userName">
+
+                    </span>&nbsp;&nbsp;
+                    <a id="logout" href="/logout">退出</a>
+                    <p>
+                        <span id="sendTime"></span>
+                    </p>
+                    <p>
+                        设备号：
+                        <span id="guid-number"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>    
+        <div class="row" style="background-color:ghostwhite">
+            <div class="col-md-1 col-sm-1 col-lg-1 bg-info height6">
+                guid:cell001
+            </div>
+            <div class="col-md-1 col-sm-1 col-lg-1 bg-info height6">
+                guid:cell002
+            </div>
+            <div class="col-md-1 col-sm-1 col-lg-1 bg-info height6">
+                guid:cell001
+            </div>
+            <div class="col-md-1 col-sm-1 col-lg-1 bg-info height6">
+                guid:cell002
+            </div>
+            <div class="col-md-1 col-sm-1 col-lg-1 bg-info height6">
+                guid:cell001
+            </div>
+            <div class="col-md-1 col-sm-1 col-lg-1 bg-info height6">
+                guid:cell002
+            </div>
+        </div>
+        <div class="dataShow" style="margin-top:15px;margin-left:-15px;height: 180px;width:1170px;background-color:ghostwhite">
+            <div class="col-md-1 col-sm-1 col-lg-1 bg-info height10">
+                重整室温度:34℃
+            </div>
+            <div class="col-md-1 col-sm-1 col-lg-1 bg-info height10">
+                氧化室温度:32℃
+            </div>
+            <div class="col-md-1 col-sm-1 col-lg-1 bg-info height10">
+                电流:3.1A
+            </div>
+            <div class="col-md-1 col-sm-1 col-lg-1 bg-info height10">
+                电压:32V
+            </div>
+            <div class="col-md-1 col-sm-1 col-lg-1 bg-info height10">
+                三乙二醇压力:7mbar
+            </div>
+            <div class="col-md-1 col-sm-1 col-lg-1 bg-info height10">
+                储液泵:200rpm/min
+            </div>
+            <div class="col-md-1 col-sm-1 col-lg-1 bg-info height10">
+                运行时间:20min
+            </div>
+        </div>
+        <div>
+            <div id="cellChartFirst" style="margin-top:15px;margin-left:-15px;width:1170px;height:500px;background-color:ghostwhite;">
+
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+
+    </div>
+</body>
+<script src="../../js/echarts.min.js" type="text/javascript"></script>
+<script src="../../js/multiDeviceInfo.js" type="text/javascript"></script>
+</html>

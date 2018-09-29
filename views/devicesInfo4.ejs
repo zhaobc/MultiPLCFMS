@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>甲醇重整燃料电池系统</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="../../img/favicon.ico" />
+  <link rel="stylesheet" href="../../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../css/offcanvas.min.css">
+  <link rel="stylesheet" href="../../css/default.css">
+  <style>
+    html{
+      font-family: 'Avenir', Helvetica, Arial, sans-serif;
+      font-size: 100%;
+    }
+
+    body {
+      font-size: 16px;
+      font-size: 1rem;
+      font-size: 100%;
+    }
+
+    @media screen and (min-width:768px) {
+      .container{
+        width:100%;
+      }
+
+      .wrapper {
+        width:99%;
+        height: 100%;
+        margin:0 auto;
+      }
+
+      .logout {
+        height: 63px;
+        line-height: 63px;
+        margin-right: 10px;
+      }
+
+      .charts {
+        width: 420px;
+        height: 260px;
+        background-color: #eee;
+        margin: 5px;
+      }
+
+      .part1 {
+        height: 412px;
+        width: 100%;
+      }
+
+      .cell {
+        display: table-cell;
+        vertical-align: middle;
+      }
+
+      .div3 {
+        height: 260px;
+        width: 168px;
+      }
+    }
+  @media screen and (min-width: 375px) and (max-width: 768px){
+    .nav-model{
+      display:none;
+    }
+
+    .div3{
+      display:none;
+    }
+
+    .charts{
+      width:320px;
+      background-color: #eee;
+      margin: 10px 14px;
+    }
+  }
+
+  @media screen and (max-width: 375px){
+    .nav-model{
+      display:none;
+    }
+    .div3{
+      display:none;
+    }
+  }
+  </style>
+</head>
+
+<body>
+  <div class="overlay"></div>
+  <nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed pull-left" data-toggle="offcanvas">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">甲醇重整燃料电池系统</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse sidebar-offcanvas">
+        <ul class="nav navbar-nav">
+          <li role="presentation" class="navli">
+            &nbsp;&nbsp;<span style="height:50px;line-height:50px;color:#fff;">车辆：</span><span style="height:50px;line-height:50px;color:#fff;"
+              id="vname" name="vname">
+              <%= items[0].vname%></span>
+            <span style="height:50px;line-height:50px;color:#fff;">-</span>
+            <span id="cellname" style="height:50px;line-height:50px;color:#fff;"></span>
+          </li>
+          <% items.forEach(function(item) {%>
+          <li role="presentation" class="navli">
+            <a href="../../devicesInfo4/<%= items[0].vname%>/<%=item.guid %>">
+              <%=item.guid %></a>
+          </li>
+          <%});%>
+          <li role="presentation" class="navli">
+            <a href="../../OneVehicleCellsInfo/<%= items[0].vname%>">all</a>
+          </li>
+          <li role="presentation" class="navli">
+            <a id="logout" href="/logout">退出</a>
+          </li>
+        </ul>
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+  </nav>
+  <div class="container">
+    <div class="wrapper">
+      <div id="nav-model" class="nav-model" style="background-color: #eee;">
+        <div class="row" style="height:45px;">
+          <div class="status col-lg-3 col-md-3 col-sm-3" style="display:table;height:45px;line-height: 45px;">
+            <ul class="list-inline center-block">
+              <li>
+                <div id="stackStatus"></div>
+              </li>
+              <li>
+                <span id="status">未知</span>
+              </li>
+            </ul>
+          </div>
+          <div id="control-model" class="col-lg-7 col-md-7 col-sm-7"
+            style="display:table;height:45px;line-height: 45px;">
+            <ul class="list-inline center-block" style="padding:0px;">
+              <li>
+                <span id="curorpowerStatus"></span>
+              </li>
+              <li>
+                <input class="btn btn-default" id="selectVorpBtn" type="button" onclick="selectVorp();" value="切换电流/功率模式" />
+              </li>
+              <li>
+                <input class="btn btn-default" id="startBtn" type="button" onclick="start();" value="开机" />
+              </li>
+              <li>
+                <input class="btn btn-default" id="stopBtn" type="button" onclick="stop();" value="关机" />
+              </li>
+              <li>
+                <input class="btn btn-default" id="standByBtn" type="button" onclick="standBy();" value="待机" />
+              </li>
+              <li>
+                <a id="redirect" class="btn btn-default" onclick="manualDebug();">手动调试</a>
+              </li>
+
+            </ul>
+          </div>
+          <div style="display:table;height:45px;line-height: 45px;">
+            <span id="sendTime"></span>
+          </div>
+        </div>
+      </div>
+      <!-- end .nav -->
+      <div style="overflow: hidden;"></div>
+      <div class="main" style="margin:10px 0 0 0;">
+        <div class="part1">
+          <div class="pull-left div3">
+            <div class="cell">
+              <b>温区分布:</b>
+              <ul class="list-unstyled">
+                <li>
+                  <span>燃气尾气:</span>
+                  <span id="exhaustTemp"></span>℃
+                </li>
+                <li>
+                  <span>重整前:</span>
+                  <span id="frontReformTemp"></span>℃
+                </li>
+                <li>
+                  <span>重整后:</span>
+                  <span id="backReformTemp"></span>℃
+                </li>
+                <li>
+                  <span>气化:</span>
+                  <span id="gasifyTemp"></span>℃
+                </li>
+                <li>
+                  <span>燃烧壁面:</span>
+                  <span id="burningWallTemp"></span>℃
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- end left -->
+          <div class="pull-left">
+            <div class="content numbers charts" id="TempAndTime">
+              <div class="description mb5">温度时间关系表</div>
+            </div>
+          </div>
+          <!-- end temp -->
+          <div class="pull-left">
+            <div class="content numbers charts" id="ParamsAndTime">
+              <h4>
+                <span>ParamsAndTime</span>
+              </h4>
+            </div>
+          </div>
+          <div class="pull-left div3 text-left">
+            <div class="cell">
+              <b>系统状态</b>
+              <ul class="list-unstyled">
+                <li>
+                  <div>警告:&nbsp;&nbsp;</div>
+                  <span class="text-warning" id="warningCode"></span>
+                </li>
+                <li>
+                  <div>错误:&nbsp;&nbsp;</div>
+                  <span class="text-danger" id="errorCode"></span>
+                </li>
+                <li>
+                  <span>状态设定:</span>
+                  <!-- <input type="text" id="setOption" /> -->
+                  <span id="selectModel">W</span>
+                  <button onclick="setOption()">确定</button>
+                </li>
+                <li>
+                  <span>输出电流:</span>
+                  <span id="electricCurrent"></span>A
+                </li>
+                <li>
+                  <span>输出电压:</span>
+                  <span id="voltage"></span>V
+                </li>
+                <li>
+                  <span>输出功率:</span>
+                  <span id="power"></span>W
+                </li>
+                <li>
+                  <span>消耗电流:</span>
+                  <span id="stackPowerConsumption"></span>A
+                </li>
+                <li>
+                  <span>耗电量:</span>
+                  <span id="stackKwhConsumption"></span>kW·h
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="part1">
+          <div class="pull-left div3">
+            <div class="cell">
+              <b>进液系统参数</b>
+              <ul class="list-unstyled">
+                <li>
+                  <span>燃烧泵:</span>
+                  <span id="burningPump"></span>rpm
+                </li>
+                <li>
+                  <span>重整泵:</span>
+                  <span id="reformPump"></span>rpm
+                </li>
+                <li>
+                  <span>导热油泵:</span>
+                  <span id="pumpSpeed"></span>%
+                </li>
+                <li>
+                  <span>氧化室风机:</span>
+                  <span id="oxidationFan"></span>rpm
+                </li>
+                <li>
+                  <span>阴极风机:</span>
+                  <span id="cathodeFan"></span>%
+                </li>
+                <li>
+                  <span>散热风扇:</span>
+                  <span id="radiatingFan"></span>%
+                </li>
+                <li>
+                  <span>三乙二醇进口温度:</span>
+                  <span id="triethyleneGlycolInputTemp"></span>°C
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- end left -->
+          <div class="pull-left">
+            <div class="content numbers charts" id="PumpParamsAndTime">
+              <div class="description mb5">温度时间关系表</div>
+              <h3 class="value">
+                <span>°C</span>
+              </h3>
+              <h1 class="value"></h1>
+              <div class="description">Temperature</div>
+            </div>
+          </div>
+          <!-- end temp -->
+          <div class="pull-left">
+            <div class="content numbers charts" id="VAndI">
+              <h4>
+                <span>VAndI</span>
+              </h4>
+            </div>
+          </div>
+          <div class="pull-left div3 text-left">
+            <div class="cell">
+              <b>燃料电池</b>
+              <ul class="list-unstyled">
+                <li>
+                  <span>单次运行:</span>
+                  <span id="singleRunningHour"></span>h
+                  <span id="singleRunningMinute"></span>min
+                </li>
+                <li>
+                  <span>累计运行:</span>
+                  <span id="totalRunningHour"></span>h
+                  <span id="totalRunningMinute"></span>min
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="../../js/offcanvas.min.js"></script>
+  <script src="../../js/echarts.min.js" type="text/javascript"></script>
+  <script src="../../js/deviceInfo.js" type="text/javascript"></script>
+</body>
+
+</html>

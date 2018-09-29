@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>氢洁电源互联互通显示系统</title>
+  <link rel="shortcut icon" href="./img/favicon.ico" />
+  <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.css">
+  <link rel="shortcut icon" href="./img/favicon.ico" />
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <!-- load fontawesome -->
+  <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.js"></script>
+  <style>
+    body {
+      padding: 40px;
+    }
+
+    .title {
+      margin: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ui grid">
+    <h1>你来到了没有知识的荒原，
+      <span id="jumpTo">5</span>s后自动跳转</h1>
+  </div>
+
+  <script type="text/javascript" src="../../js/jumpto.js"></script>
+  <script type="text/javascript">
+    var url = "/logout";
+    countDown(5, url);
+  </script>
+</body>
+
+</html>
